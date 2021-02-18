@@ -89,6 +89,7 @@ pybind_library(
         "//mediapipe/framework:packet",
         "//mediapipe/framework:timestamp",
         "//mediapipe/framework/formats:matrix",
+        "//mediapipe/framework/formats:detection_cc_proto",
         "//mediapipe/framework/port:integral_types",
         "@com_google_absl//absl/memory",
         "@com_google_absl//absl/strings",

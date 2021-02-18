@@ -17,6 +17,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/str_cat.h"
 #include "mediapipe/framework/formats/matrix.h"
+#include "mediapipe/framework/formats/detection.pb.h"
 #include "mediapipe/framework/packet.h"
 #include "mediapipe/framework/port/integral_types.h"
 #include "mediapipe/framework/timestamp.h"
@@ -629,6 +630,20 @@ void InternalPacketCreators(pybind11::module* m) {
                            "Creating a packet from a vector of proto messages "
                            "is not supproted yet.");
         return Packet();
+      },
+      py::return_value_policy::move);
+
+  m->def(
+      "_create_detection_vector",
+      [](const std::vector<py::bytes>& serialized_proto_vector) {
+        auto detections = std::make_unique<std::vector<Detection>>(serialized_proto_vector.size());
+        for (size_t i = 0; i < serialized_proto_vector.size(); i++) {
+          const py::bytes& serialized_proto = serialized_proto_vector[i];
+          Detection& detection = (*detections)[i];
+
+          detection.ParseFromString(std::string(serialized_proto));
+        }
+        return Adopt(detections.release());
       },
       py::return_value_policy::move);
 }

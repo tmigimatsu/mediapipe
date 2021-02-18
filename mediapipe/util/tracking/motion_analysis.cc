@@ -132,8 +132,10 @@ void MotionAnalysis::InitPolicyOptions() {
       break;
 
     case MotionAnalysisOptions::ANALYSIS_POLICY_VIDEO:
-      // Long track settings. Temporally consistent.
-      options_.set_estimation_clip_size(64);
+      // Low latency.
+      options_.set_estimation_clip_size(1);
+      // // Long track settings. Temporally consistent.
+      // options_.set_estimation_clip_size(64);
 
       tracking_options->set_internal_tracking_direction(
           TrackingOptions::FORWARD);
@@ -158,7 +160,7 @@ void MotionAnalysis::InitPolicyOptions() {
       motion_options->set_estimation_policy(
           MotionEstimationOptions::TEMPORAL_LONG_FEATURE_BIAS);
       motion_options->set_feature_density_normalization(true);
-      motion_options->set_overlay_detection(true);
+      // motion_options->set_overlay_detection(true);
       motion_options->set_domain_limited_irls_scaling(true);
       motion_options->set_irls_weights_preinitialized(true);
       motion_options->mutable_irls_initialization()->set_activated(true);

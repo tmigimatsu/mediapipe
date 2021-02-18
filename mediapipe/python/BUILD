@@ -47,6 +47,7 @@ pybind_extension(
         "//mediapipe/framework/formats:classification_registration",
         "//mediapipe/framework/formats:detection_registration",
         "//mediapipe/framework/formats:landmark_registration",
+        "//mediapipe/framework/formats:rect_registration",
     ],
 )
 
@@ -60,6 +61,8 @@ cc_library(
         "//mediapipe/calculators/core:string_to_int_calculator",
         "//mediapipe/calculators/image:image_transformation_calculator",
         "//mediapipe/calculators/util:detection_unique_id_calculator",
+        "//mediapipe/graphs/tracking/subgraphs:object_tracking_cpu",
+        "//mediapipe/graphs/tracking/subgraphs:object_detection_cpu",
         "//mediapipe/modules/face_detection:face_detection_front_cpu",
         "//mediapipe/modules/face_landmark:face_landmark_front_cpu",
         "//mediapipe/modules/hand_landmark:hand_landmark_tracking_cpu",

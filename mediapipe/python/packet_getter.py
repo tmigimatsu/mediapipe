@@ -115,3 +115,6 @@ def get_proto_list(packet: mp_packet.Packet) -> List[message.Message]:
     proto_message.ParseFromString(serialized_proto)
     proto_message_list.append(proto_message)
   return proto_message_list
+
+def get_detection_vector(packet: mp_packet.Packet) -> List[message.Message]:
+  return get_proto_list(packet)

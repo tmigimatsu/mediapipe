@@ -29,7 +29,7 @@ node: {
   node_options: {
     [type.googleapis.com/mediapipe.MotionAnalysisCalculatorOptions]: {
       analysis_options {
-        analysis_policy: ANALYSIS_POLICY_CAMERA_MOBILE
+        analysis_policy: ANALYSIS_POLICY_VIDEO
         flow_options {
           fast_estimation_min_block_size: 100
           top_inlier_sets: 1

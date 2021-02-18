@@ -170,3 +170,8 @@ def create_proto(proto_message: message.Message) -> packet.Packet:
 
 def create_proto_vector(message_list: List[message.Message]) -> packet.Packet:
   raise NotImplementedError('create_proto_vector is not implemented.')
+
+
+def create_detection_vector(message_list: List[message.Message]) -> packet.Packet:
+  proto_messages = [m.SerializeToString() for m in message_list]
+  return _packet_creator._create_detection_vector(proto_messages);

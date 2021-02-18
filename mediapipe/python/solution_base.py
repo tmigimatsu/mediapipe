@@ -87,6 +87,7 @@ class _PacketDataType(enum.Enum):
   IMAGE = 'image_frame'
   PROTO = 'proto'
   PROTO_LIST = 'proto_list'
+  DETECTION_VECTOR = 'detection_vector'
 
   @staticmethod
   def from_registered_name(registered_name: str) -> '_PacketDataType':
@@ -133,7 +134,7 @@ NAME_TO_TYPE: Mapping[str, '_PacketDataType'] = {
     '::std::vector<::mediapipe::ClassificationList>':
         _PacketDataType.PROTO_LIST,
     '::std::vector<::mediapipe::Detection>':
-        _PacketDataType.PROTO_LIST,
+        _PacketDataType.DETECTION_VECTOR,
     '::std::vector<::mediapipe::DetectionList>':
         _PacketDataType.PROTO_LIST,
     '::std::vector<::mediapipe::Landmark>':
@@ -218,11 +219,14 @@ class SolutionBase:
 
     canonical_graph_config_proto = self._initialize_graph_interface(
         validated_graph, side_inputs, outputs)
-    if calculator_params:
-      self._modify_calculator_options(canonical_graph_config_proto,
-                                      calculator_params)
+    # if calculator_params:
+    #   self._modify_calculator_options(canonical_graph_config_proto,
+    #                                   calculator_params)
+    # self._graph = calculator_graph.CalculatorGraph(
+    #     graph_config=canonical_graph_config_proto)
     self._graph = calculator_graph.CalculatorGraph(
-        graph_config=canonical_graph_config_proto)
+        validated_graph_config=validated_graph)
+    # self._graph = validated_graph
     self._simulated_timestamp = 0
     self._graph_outputs = {}
 
@@ -290,6 +294,11 @@ class SolutionBase:
         self._graph.add_packet_to_input_stream(
             stream=stream_name,
             packet=self._make_packet(_PacketDataType.IMAGE,
+                                     data).at(self._simulated_timestamp))
+      elif self._input_stream_type_info[stream_name] == _PacketDataType.DETECTION_VECTOR:
+        self._graph.add_packet_to_input_stream(
+            stream=stream_name,
+            packet=self._make_packet(_PacketDataType.DETECTION_VECTOR,
                                      data).at(self._simulated_timestamp))
       else:
         # TODO: Support audio data.

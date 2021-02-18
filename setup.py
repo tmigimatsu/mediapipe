@@ -273,7 +273,7 @@ class BuildBazelExtension(build_ext.build_ext):
   boolean_options = build_ext.build_ext.boolean_options + ['link-opencv']
 
   def initialize_options(self):
-    self.link_opencv = False
+    self.link_opencv = True
     build_ext.build_ext.initialize_options(self)
 
   def finalize_options(self):
@@ -321,7 +321,7 @@ class Build(build.build):
   boolean_options = build.build.boolean_options + ['link-opencv']
 
   def initialize_options(self):
-    self.link_opencv = False
+    self.link_opencv = True
     build.build.initialize_options(self)
 
   def finalize_options(self):
@@ -337,8 +337,13 @@ class Build(build.build):
     self.run_command('build_binary_graphs')
     self.run_command('build_ext')
     self.run_command('modify_inits')
+    self.run_command('gen_protos')
     build.build.run(self)
     self.run_command('remove_generated')
+    FRAMEWORK_BINDINGS = "_framework_bindings.cpython-37m-x86_64-linux-gnu.so"
+    shutil.copyfile(os.path.join(MP_ROOT_PATH, "build/lib.linux-x86_64-3.7/mediapipe/python", FRAMEWORK_BINDINGS),
+                    os.path.join(MP_ROOT_PATH, "mediapipe/python",
+                                 FRAMEWORK_BINDINGS))
 
 
 class Install(install.install):
@@ -350,7 +355,7 @@ class Install(install.install):
   boolean_options = install.install.boolean_options + ['link-opencv']
 
   def initialize_options(self):
-    self.link_opencv = False
+    self.link_opencv = True
     install.install.initialize_options(self)
 
   def finalize_options(self):
