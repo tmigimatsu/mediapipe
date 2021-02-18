@@ -336,7 +336,7 @@ class Build(build.build):
     build_ext_obj.link_opencv = self.link_opencv
     self.run_command('build_binary_graphs')
     self.run_command('build_ext')
-    self.run_command('modify_inits')
+    # self.run_command('modify_inits')
     self.run_command('gen_protos')
     build.build.run(self)
     self.run_command('remove_generated')
@@ -379,27 +379,27 @@ class RemoveGenerated(clean.clean):
   """Remove the generated files."""
 
   def run(self):
-    for pattern in [
-        'mediapipe/framework/**/*pb2.py', 'mediapipe/calculators/**/*pb2.py',
-        'mediapipe/gpu/**/*pb2.py', 'mediapipe/util/**/*pb2.py'
-    ]:
-      for py_file in glob.glob(pattern, recursive=True):
-        sys.stderr.write('removing generated files: %s\n' % py_file)
-        os.remove(py_file)
-    for binarypb_file in glob.glob(
-        'mediapipe/modules/**/*.binarypb', recursive=True):
-      sys.stderr.write('removing generated binary graphs: %s\n' % binarypb_file)
-      os.remove(binarypb_file)
+    # for pattern in [
+    #     'mediapipe/framework/**/*pb2.py', 'mediapipe/calculators/**/*pb2.py',
+    #     'mediapipe/gpu/**/*pb2.py', 'mediapipe/util/**/*pb2.py'
+    # ]:
+    #   for py_file in glob.glob(pattern, recursive=True):
+    #     sys.stderr.write('removing generated files: %s\n' % py_file)
+    #     os.remove(py_file)
+    # for binarypb_file in glob.glob(
+    #     'mediapipe/modules/**/*.binarypb', recursive=True):
+    #   sys.stderr.write('removing generated binary graphs: %s\n' % binarypb_file)
+    #   os.remove(binarypb_file)
     # Restore the original init file from the backup.
-    if os.path.exists(_get_backup_file(MP_DIR_INIT_PY)):
-      os.remove(MP_DIR_INIT_PY)
-      shutil.move(_get_backup_file(MP_DIR_INIT_PY), MP_DIR_INIT_PY)
+    # if os.path.exists(_get_backup_file(MP_DIR_INIT_PY)):
+    #   os.remove(MP_DIR_INIT_PY)
+    #   shutil.move(_get_backup_file(MP_DIR_INIT_PY), MP_DIR_INIT_PY)
     # Restore the original BUILD file from the backup.
     if os.path.exists(_get_backup_file(MP_THIRD_PARTY_BUILD)):
       os.remove(MP_THIRD_PARTY_BUILD)
       shutil.move(_get_backup_file(MP_THIRD_PARTY_BUILD), MP_THIRD_PARTY_BUILD)
-    for init_py in SUBDIR_INIT_PY_FILES:
-      os.remove(init_py)
+    # for init_py in SUBDIR_INIT_PY_FILES:
+    #   os.remove(init_py)
     clean.clean.run(self)
 
 
