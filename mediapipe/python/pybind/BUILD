@@ -153,3 +153,10 @@ pybind_library(
         "//mediapipe/framework/port:parse_text_proto",
     ],
 )
+
+pybind_library(
+    name = "my_calculators",
+    deps = [
+        "//mediapipe/graphs/tracking:desktop_calculators",
+    ]
+)

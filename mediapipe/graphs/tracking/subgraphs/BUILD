@@ -71,6 +71,7 @@ mediapipe_simple_subgraph(
         "//mediapipe/calculators/util:detection_unique_id_calculator",
         "//mediapipe/calculators/util:detections_to_timed_box_list_calculator",
         "//mediapipe/calculators/video:tracked_detection_manager_calculator",
+        "//mediapipe/calculators/video:video_pre_stream_calculator",
         "//mediapipe/framework/stream_handler:sync_set_input_stream_handler",
         "//mediapipe/graphs/tracking/subgraphs:box_tracking_cpu",
     ],

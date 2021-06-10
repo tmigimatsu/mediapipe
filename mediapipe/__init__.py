@@ -15,3 +15,6 @@ limitations under the License.
 
 from mediapipe.python import *
 import mediapipe.python.solutions as solutions
+
+from mediapipe.python import *
+import mediapipe.python.solutions as solutions

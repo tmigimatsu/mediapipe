@@ -6,6 +6,21 @@ input_stream: "VIDEO:input_video"
 input_stream: "DETECTIONS:new_detections"
 output_stream: "DETECTIONS:tracked_detections"
 
+# Adds a header to the image stream.
+node {
+  calculator: "VideoPreStreamCalculator"
+  input_stream: "input_video"
+  output_stream: "video_header"
+
+  node_options: {
+    [type.googleapis.com/mediapipe.VideoPreStreamCalculatorOptions]: {
+      fps: {
+        value: 30
+      }
+    }
+  }
+}
+
 # Assigns an unique id for each new detection.
 node {
   calculator: "DetectionUniqueIdCalculator"

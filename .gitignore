@@ -4,3 +4,8 @@ mediapipe/MediaPipe.tulsiproj/*.tulsiconf-user
 mediapipe/provisioning_profile.mobileprovision
 .configure.bazelrc
 .user.bazelrc
+*_pb2.py
+*.binarypb
+__init__.py
+build/
+mediapipe.egg-info/

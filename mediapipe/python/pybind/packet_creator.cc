@@ -625,10 +625,30 @@ void InternalPacketCreators(pybind11::module* m) {
       "_create_proto_vector",
       [](const std::string& type_name,
          const std::vector<py::bytes>& serialized_proto_vector) {
+        // using packet_internal::HolderBase;
+        // mediapipe::StatusOr<std::unique_ptr<HolderBase>> maybe_holder =
+        //     packet_internal::MessageHolderRegistry::CreateByName(type_name);
+        // if (!maybe_holder.ok()) {
+        //   throw RaisePyError(
+        //       PyExc_RuntimeError,
+        //       absl::StrCat("Unregistered proto message type: ", type_name)
+        //           .c_str());
+        // }
+        // // Creates a Packet with the concrete C++ payload type.
+        // std::unique_ptr<HolderBase> message_holder =
+        //     std::move(maybe_holder).ValueOrDie();
+        // const std::vector<const proto_ns::MessageLite*> copies = message_holder->GetVectorOfProtoMessageLite();
+        // auto* copy = const_cast<proto_ns::MessageLite*>(
+        //     message_holder->GetVectorOfProtoMessageLite());
+        // std::vector<Detection> detections;
+        // for (size_t i = 0; i < serialized_proto_vector.size(); i++) {
+        //   copy->ParseFromString(std::string(serialized_proto_vector[i]));
+        // }
+        // return packet_internal::Create(message_holder.release());
         // TODO: Implement this.
-        throw RaisePyError(PyExc_NotImplementedError,
-                           "Creating a packet from a vector of proto messages "
-                           "is not supproted yet.");
+        // throw RaisePyError(PyExc_NotImplementedError,
+        //                    "Creating a packet from a vector of proto messages "
+        //                    "is not supproted yet.");
         return Packet();
       },
       py::return_value_policy::move);
